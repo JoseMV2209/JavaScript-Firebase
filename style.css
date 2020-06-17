@@ -1,5 +1,24 @@
-.border{
+body{
+    padding: 20px;
+}
+
+.borderPerso{
     border: 1px solid black;
-    width: 100px;
-    height: 100px;
+    padding: 10px;
+}
+
+.borderPersoMessa{
+    border: 1px solid black;
+    padding: 20px;
+    margin: 10px;
+    position: relative;
+
+}
+
+.persoButton{
+
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+
 }
