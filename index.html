@@ -40,24 +40,48 @@
         <div class="container-sm borderPerso">
             <div class="row">
                 <div class="col-12">
-                    <h2>Nuevo texto para guardar: </h2>
+                    <h2>Introducir un nuevo texto o actualizar: </h2>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12 ">
-                    <form>
-
+            <br/>
+            <br/>
+            <form id="formulario">
+                <div class="row">
+                    <div class="col-6">
+                        <p>Id: </p>
+                        <input type="text" id="idMensajeUpdate" placeholder="Escriba el id para actualizar" onblur="searchMessage()" onchange="searchMessage()">
+                    </div>
+                    <div class="col-6">
                         <p>Titulo: </p>
                         <input type="text" id="titulo" placeholder="Escriba titulo" required>
-                        <br/>
-                        <br/>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-12">
                         <p>Texto: </p>
                         <textarea id="contenido" rows="5" cols="50" placeholder="Escriba algo" required></textarea>
-                        <br/>
-                        <br/>
-                        <input type="button" value="Enviar" onclick="addMessages()">
-                        <input type="reset" value="Borrar">
-                    </form>
+                    </div>
+                </div>
+                <br/>
+                <br/>
+                <div class="row">
+                    <div class="col-6 d-flex justify-content-center">
+                        <input type="button" value="Enviar" onclick="addOrUpdateMessages()">
+                    </div>
+                    <div class="col-6 d-flex justify-content-center">
+                        <input type="reset" value="Resetear">
+                    </div>
+                </div>
+            </form>
+            <br/>
+            <br/>
+            <div style="display: none;" id="zoneResultId" class="row">
+                <div class="col-6 d-flex justify-content-center">
+                    <h4>Id del ultimo mensaje guardado o modificado: </h4>
+                </div>
+                <div id="resultId" class="col-6">
                 </div>
             </div>
             <br/>
@@ -75,6 +99,16 @@
             </div>
             <div id="resultMessages" class="row">
 
+            </div>
+            <br/>
+            <br/>
+            <div class="row" >
+                <div class="col-6 d-flex justify-content-center">
+                    <input type="button" value="Esconder mensajes" onclick="toHideMessages()">
+                </div>
+                <div class="col-6 d-flex justify-content-center">
+                    <input type="button" value="Mostrar mensajes" onclick="toShowMessages()">
+                </div>
             </div>
         </div>
     </body>

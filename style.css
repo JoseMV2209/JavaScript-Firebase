@@ -5,14 +5,14 @@ body{
 .borderPerso{
     border: 1px solid black;
     padding: 10px;
+    position: relative;
 }
 
 .borderPersoMessa{
     border: 1px solid black;
     padding: 20px;
-    margin: 10px;
+    margin: 30px;
     position: relative;
-
 }
 
 .persoButton{
@@ -21,4 +21,18 @@ body{
     bottom: 20px;
     right: 15px;
 
+}
+
+.persoButtonMostrar{
+
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+
+}
+
+.persoButtonHide{
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
 }

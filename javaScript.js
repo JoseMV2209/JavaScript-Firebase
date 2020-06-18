@@ -21,15 +21,10 @@ var mensajes = new Array();
 
 function getMessages(){
 
-    var id = document.getElementById("idMensaje").value;
-
     db.collection("mensajes").get().then((querySnapshot) => {
         querySnapshot.forEach((element) => {
             this.mensajes.push(element.data());
         });
-
-        toShowMessages();
-
     });
 
 }
@@ -43,7 +38,7 @@ function getMessage(){
     var resultMessages = document.getElementById("resultMessages");
 
     if(id == ""){
-        toShowMessages()
+        resultMessages.innerHTML = "";
     }else{
         for (let i = 0; i < mensajes.length && !encontrado; i++) {
             
@@ -69,34 +64,72 @@ function getMessage(){
     }
 }
 
-function addMessages(){
+function searchMessage(){
 
-    var contenido = document.getElementById("contenido").value;
-    var titulo = document.getElementById("titulo").value;
-    var id = makeid();
+    var encontrado = false;
+    var mensaje = {};
+    var id = document.getElementById("idMensajeUpdate");
+    var contenido = document.getElementById("contenido");
+    var titulo = document.getElementById("titulo");
+
+    if(id.value == ""){
+        document.getElementById("formulario").reset();
+    }else{
+        for (let i = 0; i < mensajes.length && !encontrado; i++) {
+            
+            if(mensajes[i].id == id.value){
+
+                mensaje = mensajes[i];
+                encontrado = true;
+
+            }
+            
+        }
+
+        contenido.value = mensaje.contenido;
+        titulo.value = mensaje.titular;
+    }
+
+}
+
+function addOrUpdateMessages(){
+
+    var contenido = document.getElementById("contenido");
+    var titulo = document.getElementById("titulo");
+    var id = document.getElementById("idMensajeUpdate");
+    var resultId = document.getElementById("resultId");
+    var zoneResultId =document.getElementById("zoneResultId");
 
     var fecha = date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear();
     var hora = date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
 
 
+    if(id.value == ""){
+        id = makeid();
+    }else{
+        id = id.value;
+    }
+
     db.collection("mensajes").doc(id).set({
-        contenido: contenido,
+        contenido: contenido.value,
         fecha: fecha,
         hora: hora,
         id: id,
-        titular: titulo,
+        titular: titulo.value,
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
         location.reload();
-        document.getElementById("contenido").value = "";
-        document.getElementById("titulo").value = "";
+        document.getElementById("formulario").reset();
+        resultId.innerHTML += "<p>"+docRef.id+"</p>";
+        zoneResultId.style.display = "block";
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
         location.reload();
-        document.getElementById("contenido").value = "";
-        document.getElementById("titulo").value = "";
+        document.getElementById("formulario").reset();
+        resultId.innerHTML += "<p>"+id+"</p>";
+        zoneResultId.style.display = "block";
     });
 
 }
@@ -111,6 +144,7 @@ function toShowMessages(){
         result += "<div class='col-5 borderPersoMessa'>";
 
         result += "<div> <h4>" + mensajes[i].titular + "</h4> </div>";
+        result += "<div> <p>ID: " + mensajes[i].id + "</p> </div>";
         result += "<div> <p>" + mensajes[i].contenido + "</p> </div>";
         result += "<div> <p>" + mensajes[i].fecha + " " + mensajes[i].hora + "</p> </div>";
         result += "<button class='persoButton' type='button' onclick='deleteMessage("+mensajes[i].id +")'><img src='image/iconoEliminar.png' alt='imageDelete'/></button>"
@@ -120,6 +154,14 @@ function toShowMessages(){
     }
 
     resultMessages.innerHTML = result;
+
+}
+
+function toHideMessages(){
+
+    var resultMessages = document.getElementById("resultMessages");
+
+    resultMessages.innerHTML = "";
 
 }
 
