@@ -56,7 +56,7 @@ function getMessage(){
         result += "<div> <h4>" + mensaje.titular + "</h4> </div>";
         result += "<div> <p>" + mensaje.contenido + "</p> </div>";
         result += "<div> <p>" + mensaje.fecha + " " + mensaje.hora + "</p> </div>";
-        result += "<button class='persoButton' type='button' onclick='deleteMessage("+mensaje.id +")'><img src='image/iconoEliminar.png' alt='imageDelete'/></button>"
+        result += '<input class="persoButton" type="button" onclick="deleteMessage(\''+mensajes[i].id +'\')">';
 
         result += "</div>";
 
@@ -119,14 +119,14 @@ function addOrUpdateMessages(){
     })
     .then(function(docRef) {
         console.log("Document written with ID: ", docRef.id);
-        location.reload();
+        console.log("then");
         document.getElementById("formulario").reset();
         resultId.innerHTML += "<p>"+docRef.id+"</p>";
         zoneResultId.style.display = "block";
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
-        location.reload();
+        console.log("catch");
         document.getElementById("formulario").reset();
         resultId.innerHTML += "<p>"+id+"</p>";
         zoneResultId.style.display = "block";
@@ -147,7 +147,7 @@ function toShowMessages(){
         result += "<div> <p>ID: " + mensajes[i].id + "</p> </div>";
         result += "<div> <p>" + mensajes[i].contenido + "</p> </div>";
         result += "<div> <p>" + mensajes[i].fecha + " " + mensajes[i].hora + "</p> </div>";
-        result += "<button class='persoButton' type='button' onclick='deleteMessage("+mensajes[i].id +")'><img src='image/iconoEliminar.png' alt='imageDelete'/></button>"
+        result += '<input class="persoButton" type="button" onclick="deleteMessage(\''+mensajes[i].id +'\')">';
 
         result += "</div>";
         
@@ -179,13 +179,13 @@ function makeid() {
 
 function deleteMessage(id){
 
-    console.log(typeof id);
-/*  
+    console.log(id);
+
     db.collection("mensajes").doc(id).delete().then(function() {
         console.log("Document successfully deleted!");
-        location.reload();
-    }).catch(function(error) {
+    })
+    .catch(function(error) {
         console.error("Error removing document: ", error);
     });
-*/
+
 }
