@@ -29,41 +29,6 @@ function getMessages(){
 
 }
 
-function getMessage(){
-
-    var result = "";
-    var encontrado = false;
-    var mensaje = {};
-    var id = document.getElementById("idMensaje").value;
-    var resultMessages = document.getElementById("resultMessages");
-
-    if(id == ""){
-        resultMessages.innerHTML = "";
-    }else{
-        for (let i = 0; i < mensajes.length && !encontrado; i++) {
-            
-            if(mensajes[i].id == id){
-
-                mensaje = mensajes[i];
-                encontrado = true;
-
-            }
-            
-        }
-
-        result += "<div class='col-5 borderPersoMessa'>";
-
-        result += "<div> <h4>" + mensaje.titular + "</h4> </div>";
-        result += "<div> <p>" + mensaje.contenido + "</p> </div>";
-        result += "<div> <p>" + mensaje.fecha + " " + mensaje.hora + "</p> </div>";
-        result += '<input class="persoButton" type="button" onclick="deleteMessage(\''+mensajes[i].id +'\')">';
-
-        result += "</div>";
-
-        resultMessages.innerHTML = result ;
-    }
-}
-
 function searchMessage(){
 
     var encontrado = false;
@@ -121,47 +86,18 @@ function addOrUpdateMessages(){
         console.log("Document written with ID: ", docRef.id);
         console.log("then");
         document.getElementById("formulario").reset();
-        resultId.innerHTML += "<p>"+docRef.id+"</p>";
+        resultId.innerHTML = "<p>"+docRef.id+"</p>";
         zoneResultId.style.display = "block";
+        getMessages();
     })
     .catch(function(error) {
         console.error("Error adding document: ", error);
         console.log("catch");
         document.getElementById("formulario").reset();
-        resultId.innerHTML += "<p>"+id+"</p>";
+        resultId.innerHTML = "<p>"+id+"</p>";
         zoneResultId.style.display = "block";
+        getMessages();
     });
-
-}
-
-function toShowMessages(){
-
-    var result = "";
-    var resultMessages = document.getElementById("resultMessages");
-
-    for (var i = 0; i < mensajes.length; i++) {
-
-        result += "<div class='col-5 borderPersoMessa'>";
-
-        result += "<div> <h4>" + mensajes[i].titular + "</h4> </div>";
-        result += "<div> <p>ID: " + mensajes[i].id + "</p> </div>";
-        result += "<div> <p>" + mensajes[i].contenido + "</p> </div>";
-        result += "<div> <p>" + mensajes[i].fecha + " " + mensajes[i].hora + "</p> </div>";
-        result += '<input class="persoButton" type="button" onclick="deleteMessage(\''+mensajes[i].id +'\')">';
-
-        result += "</div>";
-        
-    }
-
-    resultMessages.innerHTML = result;
-
-}
-
-function toHideMessages(){
-
-    var resultMessages = document.getElementById("resultMessages");
-
-    resultMessages.innerHTML = "";
 
 }
 
@@ -177,15 +113,12 @@ function makeid() {
     return result;
 }
 
-function deleteMessage(id){
+function sendData(url){
 
-    console.log(id);
+    id = document.getElementById("idMensaje");
 
-    db.collection("mensajes").doc(id).delete().then(function() {
-        console.log("Document successfully deleted!");
-    })
-    .catch(function(error) {
-        console.error("Error removing document: ", error);
-    });
+    localStorage.setItem("id",id.value);
+    document.getElementById("formulario").reset();
+    location.href=url;
 
 }

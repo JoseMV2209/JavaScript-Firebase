@@ -1,0 +1,56 @@
+body{
+    padding: 20px;
+    background-color: black;
+}
+
+.borderPerso{
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    position: relative;
+}
+
+.borderPersoMessa{
+    border: 1px solid black;
+    padding: 20px;
+    margin: 30px;
+    position: relative;
+}
+
+.persoButton{
+
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+    background-image: url("../image/iconoEliminar.png");
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 25px;
+
+}
+
+.persoButtonMostrar{
+
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+
+}
+
+.persoButtonHide{
+    position: absolute;
+    left: 15px;
+    bottom: 10px;
+}
+
+.persoButtonSave{
+
+    position: absolute;
+    bottom: 20px;
+    right: 50px;
+/*     background-image: url("../image/download.png");
+    background-repeat: no-repeat;
+    height: 35px;
+    width: 35px; */
+
+}
