@@ -1,10 +1,10 @@
 body{
     padding: 20px;
-    background-color: black;
+    background-color: #73DBAC;
 }
 
 .borderPerso{
-    background-color: white;
+    background-color: #BBE1D0;
     border: 1px solid black;
     padding: 10px;
     position: relative;
