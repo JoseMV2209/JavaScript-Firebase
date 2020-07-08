@@ -117,8 +117,8 @@ function sendData(url){
 
     id = document.getElementById("idMensaje");
 
-    localStorage.setItem("id",id.value);
-    document.getElementById("formulario").reset();
+    url += "?id=" + id.value;
+
     location.href=url;
 
 }

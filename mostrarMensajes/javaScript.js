@@ -17,6 +17,7 @@ firebase.initializeApp(firebaseConfig);
 
 var db = firebase.firestore();
 var mensajes = new Array();
+var arrVariables = [];
 
 function getMessages(){
 
@@ -25,9 +26,14 @@ function getMessages(){
             this.mensajes.push(element.data());
         });
 
-        if(localStorage.getItem("id") != ""){
-            getMessage(localStorage.getItem("id"));
-            localStorage.setItem("id","");
+        arrVariables = location.search.substring(1,location.search.length).split("=");
+        id = arrVariables[1];
+
+        if(id != ""){
+
+            console.log(id);
+            getMessage(id);
+
         }else{
             toShowMessages();
         }
@@ -36,19 +42,19 @@ function getMessages(){
 
 }
 
-function getMessage(id){
+function getMessage(idSend){
 
     var result = "";
     var encontrado = false;
     var mensaje = {};
-    var resultMessages = document.getElementById("resultMessages");
+    var resultMessages = document.getElementById("resultMessages");    
 
-    if(id.value == ""){
+    if(idSend == ""){
         toShowMessages();
     }else{
         for (let i = 0; i < mensajes.length && !encontrado; i++) {
             
-            if(mensajes[i].id == id){
+            if(mensajes[i].id == idSend){
 
                 mensaje = mensajes[i];
                 encontrado = true;
@@ -57,16 +63,22 @@ function getMessage(id){
             
         }
 
-        result += "<div class='col-5 borderPersoMessa'>";
+        if(encontrado){
+            result += "<div class='col-5 borderPersoMessa'>";
 
-        result += "<div> <h4>" + mensaje.titular + "</h4> </div>";
-        result += "<div> <p>" + mensaje.contenido + "</p> </div>";
-        result += "<div> <p>" + mensaje.fecha + " " + mensaje.hora + "</p> </div>";
-        result += '<input class="persoButton" type="button" onclick="deleteMessage(\''+mensajes.id +'\')">';
+            result += "<div> <h4>" + mensaje.titular + "</h4> </div>";
+            result += "<div> <p>ID: " + mensaje.id + "</p> </div>";
+            result += "<div> <p>" + mensaje.contenido + "</p> </div>";
+            result += "<div> <p>" + mensaje.fecha + " " + mensaje.hora + "</p> </div>";
+            result += '<a href="" class="link" download="'+mensaje.titular +'.txt" onclick="saveMessage(\''+mensaje.id +'\')">Descargar</a>';
+            result += '<input class="persoButton" type="button" onclick="deleteMessage(\''+mensaje.id +'\')">';
 
-        result += "</div>";
+            result += "</div>";
 
-        resultMessages.innerHTML = result ;
+            resultMessages.innerHTML = result;
+        }else{
+            resultMessages.innerHTML = "";
+        }
     }
 }
 
